@@ -37,7 +37,23 @@ class BST
     end
   end
 
-  def delete(number)
+  def delete(number, tree=root)
+    #TWO CHILDREN NOT YET IMPLEMENTED
+    if number > tree.value
+      if tree.r_tree.value == number
+        set_new_values_right(tree)
+        number
+      else
+        delete(number, tree.r_tree)
+      end
+    elsif number < tree.value
+      if tree.l_tree.value == number
+        set_new_values_left(tree)
+      else
+        delete(number, tree.l_tree)
+        number
+      end
+    end
   end
 
   private
@@ -53,11 +69,42 @@ class BST
   def binary_search(array, min = 0, max = array.length - 1, mid = (min + max)/2)
     min > max ? nil : Node.new(binary_search(array, min, mid - 1), array[mid], binary_search(array, mid + 1, max))
   end
+
+  def set_new_values_right(tree)
+    type = type_of_node(tree.r_tree) 
+    if type.zero? 
+      tree.r_tree = nil
+    elsif type == 1
+      tree.r_tree = tree.r_tree.r_tree
+    elsif type == 2
+      tree.r_tree = tree.r_tree.l_tree
+    end
+  end
+
+  def set_new_values_left(tree)
+    type = type_of_node(tree.l_tree) 
+    if type.zero? 
+      tree.l_tree = nil
+    elsif type == 1
+      tree.l_tree = tree.l_tree.r_tree
+    elsif type == 2
+      tree.r_tree = tree.l_tree.l_tree
+    end
+  end
+
+  def type_of_node(tree)
+    return 0 if tree.node_leaf?
+    return 1 if tree.l_tree.nil? && !tree.r_tree.nil?
+    return 2 if !tree.l_tree.nil? && tree.r_tree.nil?
+    #return 3 if two_child(tree)
+  end
+
 end
 
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
+tree.delete(5)
 puts ''
 tree.to_s
 #tree2 = BST.new([1,2,3,4,5])
