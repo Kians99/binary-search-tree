@@ -2,7 +2,6 @@ require_relative 'node'
 
 class BST
 
-
   attr_accessor :root
 
   def initialize(array)
@@ -56,6 +55,18 @@ class BST
     end
   end
 
+  def find(value, tree = root)
+    return puts 'Value is not in tree' if tree.nil?
+
+    if value == tree.value
+      tree
+    elsif value > tree.value
+      find(value, tree.r_tree)
+    else
+      find(value, tree.l_tree)
+    end
+  end
+
   private
 
   def build_tree(array)
@@ -104,9 +115,9 @@ end
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
-tree.delete(5)
+node = tree.find(6473)
 puts ''
-tree.to_s
+#p node
 #tree2 = BST.new([1,2,3,4,5])
 #tree2.to_s
 
