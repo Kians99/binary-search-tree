@@ -74,7 +74,17 @@ class BST
       queue.unshift(cur_node.l_tree) unless cur_node.l_tree.nil?
       queue.unshift(cur_node.r_tree) unless cur_node.r_tree.nil?
     end
-    return arr_val
+    arr_val
+  end
+
+  def level_order_recurs(queue = [root], arr_val = [])
+    return arr_val if queue == []
+
+    cur_node = queue.pop
+    arr_val.push(cur_node.value)
+    queue.unshift(cur_node.l_tree) unless cur_node.l_tree.nil?
+    queue.unshift(cur_node.r_tree) unless cur_node.r_tree.nil?
+    level_order_recurs(queue, arr_val)
   end
 
   private
@@ -128,12 +138,8 @@ tree.to_s
 arr = tree.level_order
 puts ""
 p arr
+puts ""
 
-
-
-#p node
-#tree2 = BST.new([1,2,3,4,5])
-#tree2.to_s
 
 
 
