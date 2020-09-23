@@ -67,6 +67,16 @@ class BST
     end
   end
 
+  def level_order(tree = root, queue = [tree], arr_val = [])
+    until queue == []
+      cur_node = queue.pop
+      arr_val.push(cur_node.value)
+      queue.unshift(cur_node.l_tree) unless cur_node.l_tree.nil?
+      queue.unshift(cur_node.r_tree) unless cur_node.r_tree.nil?
+    end
+    return arr_val
+  end
+
   private
 
   def build_tree(array)
@@ -115,8 +125,12 @@ end
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
-node = tree.find(6473)
-puts ''
+arr = tree.level_order
+puts ""
+p arr
+
+
+
 #p node
 #tree2 = BST.new([1,2,3,4,5])
 #tree2.to_s
