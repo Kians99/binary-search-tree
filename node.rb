@@ -14,4 +14,7 @@ class Node
     self.value <=> other_node.value
   end
 
+  def node_leaf?
+    l_tree.nil? && r_tree.nil?
+  end
 end
