@@ -87,6 +87,31 @@ class BST
     level_order_recurs(queue, arr_val)
   end
 
+  def inorder(tree = root, arr_values = [])
+    return arr_values if tree.nil?
+
+    inorder(tree.l_tree, arr_values)
+    arr_values.push(tree.value)
+    inorder(tree.r_tree, arr_values)
+  end
+
+  def preorder(tree = root, arr_values = [])
+    return arr_values if tree.nil?
+
+    arr_values.push(tree.value)
+    preorder(tree.l_tree, arr_values)
+    preorder(tree.r_tree, arr_values)
+  end
+
+  def postorder(tree = root, arr_values = [])
+    return arr_values if tree.nil?
+
+    postorder(tree.l_tree, arr_values)
+    postorder(tree.r_tree, arr_values)
+    arr_values.push(tree.value)
+  end
+  
+
   private
 
   def build_tree(array)
@@ -135,9 +160,11 @@ end
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
-arr = tree.level_order
+array = tree.postorder
+#arr2 = preorder
+#arr3 = postorder
 puts ""
-p arr
+p array
 puts ""
 
 
