@@ -110,6 +110,19 @@ class BST
     postorder(tree.r_tree, arr_values)
     arr_values.push(tree.value)
   end
+
+  def height(tree = root)
+    return -1 if tree.nil?
+
+    left_height = height(tree.l_tree) 
+    right_height = height(tree.r_tree) 
+    [left_height, right_height].max + 1
+  end
+
+  def depth(tree = root)
+    return 0 if tree.node_leaf?
+
+  end
   
 
   private
@@ -160,12 +173,14 @@ end
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
-array = tree.postorder
+array = tree.height
 #arr2 = preorder
 #arr3 = postorder
 puts ""
 p array
 puts ""
+
+
 
 
 
