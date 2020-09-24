@@ -119,11 +119,24 @@ class BST
     [left_height, right_height].max + 1
   end
 
-  def depth(tree = root)
-    return 0 if tree.node_leaf?
+  def depth(inp_node, tree = root)
+    return 0 if inp_node.value == tree.value
 
+    if inp_node.value > tree.value
+      depth(inp_node, tree.r_tree) + 1
+    else
+      depth(inp_node, tree.l_tree) + 1
+    end
   end
-  
+
+  def balanced?(tree = root)
+    ((height(tree.l_tree) - height(tree.r_tree)).abs <= 1)
+  end
+
+  def rebalance(tree = root)
+    array_of_values = self.level_order(tree)
+    self.root = build_tree(array_of_values)
+  end
 
   private
 
@@ -168,16 +181,24 @@ class BST
     #return 3 if two_child(tree)
   end
 
+
+
 end
 
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
-array = tree.height
+tree.insert(10000)
+tree.insert(10001)
+tree.insert(10002)
+tree.insert(10003)
+tree.to_s
+tree.rebalance
+tree.to_s
 #arr2 = preorder
 #arr3 = postorder
 puts ""
-p array
+
 puts ""
 
 
