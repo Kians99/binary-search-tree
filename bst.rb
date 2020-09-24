@@ -188,17 +188,18 @@ end
 
 tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
 tree.to_s
+puts ""
+puts ""
 tree.insert(10000)
 tree.insert(10001)
 tree.insert(10002)
 tree.insert(10003)
 tree.to_s
+puts ""
+puts ""
 tree.rebalance
 tree.to_s
-#arr2 = preorder
-#arr3 = postorder
 puts ""
-
 puts ""
 
 
