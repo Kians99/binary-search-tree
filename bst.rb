@@ -37,7 +37,6 @@ class BST
   end
 
   def delete(number, tree=root)
-    #TWO CHILDREN NOT YET IMPLEMENTED
     if number > tree.value
       if tree.r_tree.value == number
         set_new_values_right(tree)
@@ -160,6 +159,16 @@ class BST
       tree.r_tree = tree.r_tree.r_tree
     elsif type == 2
       tree.r_tree = tree.r_tree.l_tree
+    else
+      if tree.r_tree.r_tree.l_tree.nil?
+        tree.r_tree.r_tree.l_tree = tree.r_tree.l_tree
+        tree.r_tree = tree.r_tree.r_tree
+      else
+        replacement = left_most(tree.r_tree.r_tree)
+        replacement.r_tree = tree.r_tree.r_tree
+        replacement.l_tree = tree.r_tree.l_tree
+        tree.r_tree = replacement
+      end
     end
   end
 
@@ -171,6 +180,27 @@ class BST
       tree.l_tree = tree.l_tree.r_tree
     elsif type == 2
       tree.r_tree = tree.l_tree.l_tree
+    else
+      if tree.l_tree.r_tree.l_tree.nil?
+        tree.l_tree.r_tree.l_tree = tree.l_tree.l_tree
+        tree.l_tree = tree.l_tree.r_tree
+      else
+        replacement = left_most(tree.l_tree.r_tree)
+        replacement.r_tree = tree.l_tree.r_tree
+        replacement.l_tree = tree.l_tree.l_tree
+        tree.l_tree = replacement
+
+      end
+    end
+  end
+
+  def left_most(node)
+    if node.l_tree.l_tree.nil?
+      store_node = node.l_tree
+      node.l_tree = nil
+      return store_node
+    else
+      left_most(node.l_tree)
     end
   end
 
@@ -178,7 +208,7 @@ class BST
     return 0 if tree.node_leaf?
     return 1 if tree.l_tree.nil? && !tree.r_tree.nil?
     return 2 if !tree.l_tree.nil? && tree.r_tree.nil?
-    #return 3 if two_child(tree)
+    return 3 if !tree.l_tree.nil? && !tree.r_tree.nil?
   end
 
 
@@ -186,22 +216,14 @@ class BST
 end
 
 
-tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324])
+tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324,0.5,0.2])
 tree.to_s
 puts ""
 puts ""
-tree.insert(10000)
-tree.insert(10001)
-tree.insert(10002)
-tree.insert(10003)
+tree.delete(23)
+puts ""
+puts ""
 tree.to_s
-puts ""
-puts ""
-tree.rebalance
-tree.to_s
-puts ""
-puts ""
-
 
 
 
