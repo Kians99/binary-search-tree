@@ -115,6 +115,7 @@ class BST
 
     left_height = height(tree.l_tree) 
     right_height = height(tree.r_tree) 
+
     [left_height, right_height].max + 1
   end
 
@@ -210,20 +211,71 @@ class BST
     return 2 if !tree.l_tree.nil? && tree.r_tree.nil?
     return 3 if !tree.l_tree.nil? && !tree.r_tree.nil?
   end
-
-
-
 end
 
 
-tree = BST.new([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324,0.5,0.2])
-tree.to_s
-puts ""
-puts ""
-tree.delete(23)
-puts ""
-puts ""
-tree.to_s
+bst = BST.new(Array.new(15) { rand(1..100) })
+puts ''
+bst.to_s
+puts ''
+puts 'Is tree Balanced?'
+bst.balanced? ? (puts 'True') : (puts 'False')
+puts ''
+puts 'Level Order Traversal:'
+p bst.level_order
+puts ''
+puts 'Preorder Traversal:'
+p bst.preorder
+puts ''
+puts 'Postorder Traversal:'
+p bst.postorder
+puts ''
+puts 'Inorder Traversal:'
+p bst.inorder
+puts ''
+puts 'Unbalance Tree:'
+puts ''
+bst.insert(101)
+bst.insert(102)
+bst.insert(103)
+bst.insert(104)
+bst.to_s
+puts ''
+puts 'Is tree Balanced?'
+bst.balanced? ? (puts 'True') : (puts 'False')
+puts ''
+puts 'Rebalance Tree:'
+puts ''
+bst.rebalance
+bst.to_s
+puts ''
+puts 'Is tree Balanced?'
+bst.balanced? ? (puts 'True') : (puts 'False')
+puts ''
+puts ''
+puts 'Level Order Traversal:'
+p bst.level_order
+puts ''
+puts 'Preorder Traversal:'
+p bst.preorder
+puts ''
+puts 'Postorder Traversal:'
+p bst.postorder
+puts ''
+puts 'Inorder Traversal:'
+p bst.inorder
+puts ''
+
+
+
+
+
+
+
+
+
+
+
 
 
 
